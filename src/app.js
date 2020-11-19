@@ -1,6 +1,15 @@
 document.body.addEventListener("click", (trigger)=>{
-    let advanced = document.querySelector("#advanced").checked
-    document.body.style.background = randomColor(advanced)
+    //Tillfällig lösning med if:en
+    if(!document.querySelector("#anpassad").checked){
+        let advanced = document.querySelector("#advanced").checked
+        document.body.style.background = randomColor(advanced)
+    } else {
+        let chosenRandomColor = semiRandomColor()
+        
+        document.body.style.background = chosenRandomColor
+        document.querySelector(".currentColorName").textContent = chosenRandomColor
+    }
+
 })
 
 
@@ -11,7 +20,7 @@ function randomNumber(advanced){
         return Math.round(Math.random()) * 255
     }
 
-    return Math.floor(Math.random() * Math.floor(256))
+    return randomInt(256)
 }
 
 function randomColor(advanced){
@@ -36,4 +45,22 @@ async function colorName(colorRgb){
     document.querySelector(".currentColorName").textContent = svar.name.value
     
     return svar.name.value
+}
+
+function semiRandomColor(){
+    const carpetColors = [
+        "yellow", "green", "white", "orange", "red", "black", "purple", "blue"
+    ]
+
+    const parts = ["feet", "hands"]
+
+    let random = randomInt(carpetColors.length)
+
+    console.log(carpetColors[random])
+    return carpetColors[random]
+
+}
+
+function randomInt(max){
+    return Math.floor(Math.random() * Math.floor(max))
 }
